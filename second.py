@@ -2,7 +2,8 @@ def cislo_text(cislo):
     nact = {11: "jedenact", 12: "dvanact", 13: "třinact", 14: "čtrnact", 15: "patnact", 16: "šestnact", 17: "sedumnact", 18: "osmnact", 19: "devatenact" }
     desitky = {1: "desat", 2: "dvacet", 3: "tricet", 4:"čtřicet", 5: "padesat", 6: "sestdesat", 7: "sudumdesat", 8: "osmdesat", 9: "devadesat"}
     jednotky = {1: "jedna", 2: "dva", 3:"tri", 4: " čtři", 5: "pet", 6: "sest", 7: "sedum", 8: "osm", 9:"devat"}
-    cislo = int(cislo)  
+    cislo = int(cislo) 
+     
     if cislo ==0:
         return  "nula"
     elif cislo == 100:
