@@ -15,7 +15,6 @@ def download_url_and_get_all_hrefs(url):
         hrefs = [a.get('href') for a in soup.find_all('a', href=True)]
     
         return hrefs
-    
     except Exception as e:
         print(f"Chyba při zpracování stránky: {e}")
         return []
