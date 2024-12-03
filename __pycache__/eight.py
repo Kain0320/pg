@@ -5,7 +5,6 @@ def bin_to_dec(binarni_cislo):
     if isinstance(binarni_cislo, int):
         binarni_cislo = str(binarni_cislo)
     
-
     return int(binarni_cislo,2)
 
 # Testovací funkce
