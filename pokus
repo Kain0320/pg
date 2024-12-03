@@ -1,44 +1,50 @@
-# funkce vrati treti prvek ze seznamu, pokud ma mene nez 3 prvky, vrati None
-def vrat_treti(seznam):
-    return seznam[2]
+import sys
+import requests
+from bs4 import BeautifulSoup
 
-# funkce spocita prumer z hodnot v seznamu
-def udelej_prumer(seznam):
-    return sum(seznam) / len(seznam)
-
-# funkce naformatuje retezec, aby vratila text ve formatu:
-# "Jmeno: Jan, Prijmeni: Novak, Vek: 20, Prumerna znamka: 2.5"
-def naformatuj_text(slovnik):
-    jmeno = slovnik["jmeno"]
-    prijmeni = slovnik["prijmeni"]
-    vek = slovnik["vek"]
-    prumerna_znamka = udelej_prumer(slovnik["znamky"])
-
-    return f"Jmeno: {jmeno}, Prijmeni: {prijmeni}, Vek: {vek}, Prumerna znamka: {prumerna_znamka}"
-
-
+def download_url_and_get_all_hrefs(url):
+    """
+    Funkce stáhne obsah stránky zadané parametrem `url`, zkontroluje stavový kód,
+    a pokud je 200, najde všechny odkazy z tagů <a> a vrátí je jako seznam.
+    """
+    hrefs = []
+    try:
+        # Stáhnutí obsahu stránky
+        response = requests.get(url)
+        response.raise_for_status()  # Zkontroluje, zda je stavový kód 200
+        
+        # Analýza obsahu stránky pomocí BeautifulSoup
+        soup = BeautifulSoup(response.content, "html.parser")
+        
+        # Najít všechny tagy <a> a extrahovat odkazy
+        for a_tag in soup.find_all("a", href=True):
+            hrefs.append(a_tag["href"])
+    
+    except requests.exceptions.RequestException as e:
+        print(f"Chyba při stahování stránky: {e}")
+    except Exception as e:
+        print(f"Neočekávaná chyba: {e}")
+    
+    return hrefs
 
 if __name__ == "__main__":
-    # sezna = [9,8,5]
-    # vysledek = vrat_treti(ceznam)
-    # print(vysledek)
-
-    # obalka = [9,8,7,6,5]
-    # vysledek = udelej_prumer(obalka)
-    # print(vysledek)
-
-    student = {
-        "jmeno": "Matěj",
-        "prijmeni": "Dvořák",
-        "vek": 21,
-        "znamky": [1, 2, 1, 1, 3, 2]
-    }
-    vysledek = naformatuj_text(student)
-    print(vysledek)
-
-    student["vek"] # -> 21
-    student["znamky"] # -> [1, 2, 1, 1, 3, 2]
-    student["znamky"] # -> 1
-
-    a = 1
-    f"Nafarmatovany retezec s hodnotou {a}" # ""Nafarmatovany retezec s hodnotou 1"
+    if len(sys.argv) < 2:
+        print("Nebyla zadána žádná URL. Spusťte program s URL jako argumentem.")
+    else:
+        try:
+            # Načtení URL z argumentu příkazové řádky
+            url = sys.argv[1]
+            print(f"Stahuji URL: {url}")
+            
+            # Stažení odkazů ze stránky
+            hrefs = download_url_and_get_all_hrefs(url)
+            
+            # Výpis nalezených odkazů
+            if hrefs:
+                print("Nalezené odkazy:")
+                for href in hrefs:
+                    print(href)
+            else:
+                print("Žádné odkazy nebyly nalezeny.")
+        except Exception as e:
+            print(f"Program skončil chybou: {e}")
