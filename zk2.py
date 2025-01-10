@@ -24,7 +24,7 @@ def convert_to_czk(amount, currency):
     #men kurz
     exchange_rates = {}
 
-    for line in lines[2:]:  # zac z 3. radku (1 a 2 jsou hlavicky)
+    for line in lines[2:]:  # zac z 3. radku (1 a 2 je hlavicka)
         if line.strip():  # kontrola neni-li prazdny radky
             parts = line.split("|")
             if len(parts) == 5: #konrola spravnosti
