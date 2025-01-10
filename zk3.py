@@ -6,25 +6,24 @@
 
 
 import math
-
+#vsechny tridy dedi od tridy Shape
 class Shape:
     def area(self):
         return 0.0
-
+    
+    #__init__ je konstruktor pro nastavení počátečních hodnot atributů
 class Rectangle(Shape):
     def __init__(self, width, height):
-        #implementace sir a vys, pomoci kontsr
+        #self odkazuje na konrétní instanci třídy
         self.width = width
         self.height = height
-
     def area(self):
-        # Výpočet plochy 
-        return self.width * self.height
+        return self.width * self.height #konkretni tvar ( dedeicna metoda)
+
 
 class Circle(Shape):
-    def __init__(self, radius): #konstruktor ktery impl radius
+    def __init__(self, radius): 
         self.radius = radius
-
     def area(self):
         return math.pi * self.radius ** 2
 

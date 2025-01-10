@@ -10,9 +10,8 @@
 import requests
 
 def convert_to_czk(amount, currency):
-    # stahovani kurzovního lístku 
     url = "http://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.txt" 
-    response = requests.get(url) #ukladani do promenne response
+    response = requests.get(url) 
     
     #konrola zda se povedlo stahnout
     if not response.ok:

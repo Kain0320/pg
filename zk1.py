@@ -8,21 +8,15 @@ def process_strings(strings):
          # vytvoření nového seznamu
     result = []
 
-    # procházení všech řetězců
+    # procházení všech řetězců z dodanim podminek
     for string in strings:
-        
         if string == "STOP":
-            #ukonceni pomoci break,kdyz stop
             break
-
-        #  řetězec , pokud je delší než 3 znaky
         if len(string) > 3:
             result.append(string.upper())
-            #doddani velkych pismen
     return result
     pass
 
-# Pytest testy pro Příklad 2
 def test_process_strings():
     assert process_strings(["abc", "abcd", "STOP", "efgh"]) == ["ABCD"]
     assert process_strings(["hello", "world", "STOP", "python"]) == ["HELLO", "WORLD"]
