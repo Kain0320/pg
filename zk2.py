@@ -18,16 +18,16 @@ def convert_to_czk(amount, currency):
         raise ConnectionError("Failed to fetch exchange rates.")
     
     
-    # jednot radky do sez lines
+    # split to jednot radky
     lines = response.text.split("\n")
     #men kurz
     exchange_rates = {}
 
-    for line in lines[2:]:  # zac z 3. radku (1 a 2 je hlavicka)
-        if line.strip():  # kontrola neni-li prazdny radky
+    for line in lines[2:]:  # zac z 3. radku 
+        if line.strip():  # kontrol if not prazd radky
             parts = line.split("|")
-            if len(parts) == 5: #konrola spravnosti
-                country, currency_name, amount_unit, currency_code, exchange_rate = parts #rozdeli na casti
+            if len(parts) == 5: 
+                country, currency_name, amount_unit, currency_code, exchange_rate = parts 
                 amount_unit = int(parts[2]) #textovy format
                 exchange_rate = float(parts[4].replace(",", ".")) 
                 exchange_rates[currency_code] = exchange_rate / amount_unit #dodani do slovniku
